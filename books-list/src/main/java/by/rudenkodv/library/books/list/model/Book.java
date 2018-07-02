@@ -1,41 +1,27 @@
 package by.rudenkodv.library.books.list.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-@Entity
+@Document
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = -3846312502042795415L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(unique = true, nullable = false)
     private Long id;
     
-    @Column
     private String title;
     
-    @Column
     private String author;
     
-    @Column
     private String description;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="genre_id")
     private Genre genre;
     
-    @Column
     private Date year;
 
     /**

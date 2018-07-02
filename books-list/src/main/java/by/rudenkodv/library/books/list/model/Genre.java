@@ -1,18 +1,12 @@
 package by.rudenkodv.library.books.list.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import org.springframework.data.rest.core.annotation.RestResource;
-
-@Entity
+@Document
 public class Genre implements Serializable {
 
 	private static final long serialVersionUID = 4205656669930290800L;
@@ -25,15 +19,10 @@ public class Genre implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(unique = true, nullable = false)
 	private Long id;
 
-	@Column
 	private String genre;
 
-	@RestResource(path = "getBooksByGenre", rel = "getBooksByGenre")
-	@OneToMany(mappedBy = "genre")
 	private List<Book> book;
 
 	/**
