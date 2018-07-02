@@ -1,0 +1,17 @@
+<div *ngFor="let book of books$ | async" class="ui-g-4">
+  <p-card title="Advanced Card" subtitle="Subtitle" [style]="{width: '360px'}" styleClass="ui-card-shadow">
+    <p-header>
+      <div>Title : {{book.title}}</div>
+      <p>Genre : {{book.genre.genre}} Year: {{book.year}}</p>
+      <div>Author : {{book.author}}</div>
+      <img src="Card" src="assets/showcase/images/usercard.png">
+    </p-header>
+    <div>{{book.description}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
+      repudiandae numquam deserunt
+      quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+    </div>
+    <p-footer>
+      <button pButton type="button" label="Read" icon="fa-check"></button>
+    </p-footer>
+  </p-card>
+</div>

@@ -1,0 +1,10 @@
+zuul:
+  #Service will be mapped under the /api URI
+  prefix: /api
+  routes:
+       books-list:
+        path: /books-list/**
+        serviceId: books-list
+
+server:
+  port: 9991

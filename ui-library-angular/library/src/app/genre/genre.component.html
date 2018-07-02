@@ -1,0 +1,6 @@
+<p-card>
+  <div *ngFor="let item of genres">
+    <button pButton type="button" label="{{item.genre}}" (click)="getBookByGenre(item.genre)" class ="genre"></button>
+  </div>
+</p-card>
+

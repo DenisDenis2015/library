@@ -1,0 +1,3 @@
+[submodule "ui-library-angular/library"]
+	path = ui-library-angular/library
+	url = /home/denis/Work/Project/library/ui-library-angular/library
