@@ -1,16 +1,15 @@
 package by.rudenkodv.library.books.list.springboot;
 
-import com.mongodb.MongoClient;
+import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
-import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
-@EnableMongoAuditing
-@EnableReactiveMongoRepositories //(basePackages = "by.rudenkodv.library.books.list.service.repository")
-public class MongoConfig extends AbstractMongoConfiguration {
+@Configuration
+@EnableReactiveMongoRepositories(basePackages = "by.rudenkodv.library.books.list.service.repository")
+public class MongoConfig extends AbstractReactiveMongoConfiguration {
     
     @Value("${mongo.host}")
     private String host;
@@ -26,9 +25,8 @@ public class MongoConfig extends AbstractMongoConfiguration {
         return dataBaseName;
     }
 
-    @Bean
     @Override
-    public MongoClient mongoClient() {
-        return (MongoClient) MongoClients.create();
+    public MongoClient reactiveMongoClient() {
+        return MongoClients.create();
     }
 }

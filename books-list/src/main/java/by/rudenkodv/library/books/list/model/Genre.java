@@ -4,7 +4,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Document
 public class Genre implements Serializable {
@@ -19,16 +18,14 @@ public class Genre implements Serializable {
 	}
 
 	@Id
-	private Long id;
+	private String id;
 
 	private String genre;
-
-	private List<Book> book;
 
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -43,7 +40,7 @@ public class Genre implements Serializable {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -54,18 +51,9 @@ public class Genre implements Serializable {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	
-	public List<Book> getBook() {
-        return book;
-    }
-
-    public void setBook(List<Book> book) {
-        this.book = book;
-    }
-
     /*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

@@ -5,11 +5,14 @@ import by.rudenkodv.library.books.list.model.Genre;
 import by.rudenkodv.library.books.list.service.repository.ReactiveBookRepository;
 import by.rudenkodv.library.books.list.service.repository.ReactiveGenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
-//@RefreshScope
+@RefreshScope
 @RestController
 public class BookApplication {
 
@@ -24,12 +27,12 @@ public class BookApplication {
 		return "rest service is  available";
 	}
 
-	@GetMapping(value = "/get/all/books")
+	@GetMapping(value = "/get/all/books", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Book> getAllBooks() {
 		return bookRepository.findAll();
 	}
 	
-	@GetMapping(value = "/get/all/genres")
+	@GetMapping(value = "/get/all/genres", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Genre> getAllGenres() {
 		return genreRepository.findAll();
 	}
