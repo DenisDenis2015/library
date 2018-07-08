@@ -36,4 +36,7 @@ public class BookApplication {
 	public Flux<Genre> getAllGenres() {
 		return genreRepository.findAll();
 	}
+
+
+	
 }

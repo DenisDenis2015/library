@@ -1,13 +1,15 @@
 package by.rudenkodv.library.books.list.model;
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@NoArgsConstructor
+@ToString
+@AllArgsConstructor
 @Getter
 @Data
 @Document
