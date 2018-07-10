@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
@@ -25,7 +26,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-//@EnableEurekaClient
 @EnableDiscoveryClient
 @SpringBootApplication
 public class BookListSpringBootStarter {
@@ -45,11 +45,11 @@ public class BookListSpringBootStarter {
 		return new CorsWebFilter(source);
 	}
 
-	@Bean
+/*	@Bean
 	@LoadBalanced
 	public WebClient.Builder loadBalancedWebClientBuilder() {
 		return WebClient.builder();
-	}
+	}*/
 
 	@Autowired
 	private ReactiveBookRepository bookRepository;

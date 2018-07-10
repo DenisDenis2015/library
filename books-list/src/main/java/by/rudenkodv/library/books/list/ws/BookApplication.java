@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.util.function.Tuple2;
+
+import java.time.Duration;
 
 @RefreshScope
 @RestController
@@ -37,6 +39,8 @@ public class BookApplication {
 		return genreRepository.findAll();
 	}
 
-
-	
+	@GetMapping(value = "/get/all/books/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<Book> getAllBooksStream() {
+		return Flux.zip(Flux.interval(Duration.ofSeconds(1)) , bookRepository.findAll()).map(Tuple2::getT2);
+	}
 }

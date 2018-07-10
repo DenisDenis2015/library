@@ -9,6 +9,6 @@ eureka:
     fetchRegistry: false
   server:
     enableSelfPreservation: false
-  
+
 server:
   port: 8761   # HTTP (Tomcat) port, runs Eureka.
