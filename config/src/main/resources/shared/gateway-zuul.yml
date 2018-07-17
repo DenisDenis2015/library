@@ -1,16 +1,20 @@
-zuul:
-  #Service will be mapped under the /api URI
-  prefix: /api
-  routes:
-       books-list:
-        path: /books-list/**
-        serviceId: books-list
-
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
-
-ribbon:
-  ConnectTimeout: 3000
-  ReadTimeout: 60000
-
 server:
   port: 9991
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+      - id: books-list
+        uri: lb://books-list
+        predicates:
+        - Path=/books-list/**
+        filters:
+        - RewritePath=/books-list/(?<path>.*), /$\{path}
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"

@@ -12,8 +12,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<version>2.0.0.RELEASE</version>
+		<relativePath/>
 	</parent>
 
 	<properties>
@@ -29,13 +29,7 @@
 		
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-eureka-server</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -44,7 +38,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Edgware.RELEASE</version>
+				<version>Finchley.RC1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
