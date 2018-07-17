@@ -14,11 +14,11 @@ server:
 
 
 # Discovery Server Access
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:8761/eureka/
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 
 logging:
   level:
-    org.springframework.security: INFO
+    org.springframework.security: DEBUG

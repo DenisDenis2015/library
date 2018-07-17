@@ -1,37 +1,46 @@
 package by.rudenkodv.library.books.list.ws;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import by.rudenkodv.library.books.list.model.Book;
 import by.rudenkodv.library.books.list.model.Genre;
-import by.rudenkodv.library.books.list.service.repository.BookRepository;
-import by.rudenkodv.library.books.list.service.repository.GenreRepository;
+import by.rudenkodv.library.books.list.service.repository.ReactiveBookRepository;
+import by.rudenkodv.library.books.list.service.repository.ReactiveGenreRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+import reactor.util.function.Tuple2;
 
-//@RefreshScope
-//@RestController
+import java.time.Duration;
+
+@RefreshScope
+@RestController
 public class BookApplication {
 
-/*	@Autowired
-	private BookRepository bookRepository;
+	@Autowired
+	private ReactiveBookRepository bookRepository;
 
 	@Autowired
-	private GenreRepository genreRepository;
+	private ReactiveGenreRepository genreRepository;
 
-	@RequestMapping(value = "/available")
+	@GetMapping(value = "/available")
 	public String available() {
-		return "from available Spring in Action";
+		return "rest service is  available";
 	}
 
-	@RequestMapping(value = "/get/all/books")
-	public Iterable<Book> getAllBooks() {
+	@GetMapping(value = "/get/all/books", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<Book> getAllBooks() {
 		return bookRepository.findAll();
 	}
 	
-	@RequestMapping(value = "/get/all/genres")
-	public Iterable<Genre> getAllGenres() {
+	@GetMapping(value = "/get/all/genres", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<Genre> getAllGenres() {
 		return genreRepository.findAll();
-	}*/
+	}
+
+	@GetMapping(value = "/get/all/books/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<Book> getAllBooksStream() {
+		return Flux.zip(Flux.interval(Duration.ofSeconds(1)) , bookRepository.findAll()).map(Tuple2::getT2);
+	}
 }

@@ -1,11 +1,15 @@
 package by.rudenkodv.library.books.list.springboot;
 
+import com.mongodb.reactivestreams.client.MongoClient;
+import com.mongodb.reactivestreams.client.MongoClients;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
-//@Configuration
-//@EnableMongoRepositories(basePackages = "by.rudenkodv.library.books.list.service.repository")
-public class MongoConfig /*extends AbstractMongoConfiguration*/ {
+@Configuration
+@EnableReactiveMongoRepositories(basePackages = "by.rudenkodv.library.books.list.service.repository")
+public class MongoConfig extends AbstractReactiveMongoConfiguration {
     
     @Value("${mongo.host}")
     private String host;
@@ -16,18 +20,13 @@ public class MongoConfig /*extends AbstractMongoConfiguration*/ {
     @Value("${mongo.dbname}")
     private String dataBaseName;
     
-/*    @Override
+    @Override
     protected String getDatabaseName() {
         return dataBaseName;
     }
 
     @Override
-    public Mongo mongo() throws Exception {
-        return new MongoClient(host, port);
+    public MongoClient reactiveMongoClient() {
+        return MongoClients.create();
     }
-
-    @Override
-    protected String getMappingBasePackage() {
-        return "by.rudenkodv.library.books.list.model";
-    }*/
 }

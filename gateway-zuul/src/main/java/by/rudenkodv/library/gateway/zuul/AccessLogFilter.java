@@ -1,19 +1,10 @@
 package by.rudenkodv.library.gateway.zuul;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+//@Component
+public class AccessLogFilter /*extends ZuulFilter*/ {
 
-import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
-
-@Component
-public class AccessLogFilter extends ZuulFilter {
-
-    Logger logger = LoggerFactory.getLogger(AccessLogFilter.class);
+   /* Logger logger = LoggerFactory.getLogger(AccessLogFilter.class);
 
     @Override
     public String filterType() {
@@ -42,5 +33,5 @@ public class AccessLogFilter extends ZuulFilter {
         logger.info("RESPONSE:: > HTTP:" + response.getStatus());
 
         return null;
-    }
+    }*/
 }
