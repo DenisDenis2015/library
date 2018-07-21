@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {BookService} from "../service/book.service";
-import {GenreModel} from "../model/genre-model";
+import { Component, OnInit } from '@angular/core';
+import { BookService } from "../service/book.service";
+import { IGenreModel } from "../model/genre-model";
 import { Store } from "@ngrx/store"
 import { BooksState } from '../model/AppState';
 import { BooksByGenreAction } from '../store/action/booksAction';
+import * as fromRoot from "../store/reducer/booksReducer";
+import { Observable } from "rxjs/Observable";
+import { IBookModel } from "../model/book-model";
 
 @Component({
   selector: 'app-genre',
@@ -12,33 +15,29 @@ import { BooksByGenreAction } from '../store/action/booksAction';
 })
 export class GenreComponent implements OnInit {
 
-  constructor(private bookService:BookService, private store : Store <BooksState>) {
+  genres$: Observable<IGenreModel[]>;
+
+  constructor(private bookService: BookService, private store: Store<BooksState>) {
+    //this.genres$ = store.select(fromRoot.getGenres);
   }
 
-  genres : GenreModel[];
+  genres: IGenreModel[];
 
   ngOnInit() {
-    this.bookService.getGenres().subscribe((data : any) =>{
-      this.genres = data._embedded.genres;
+    this.bookService.getGenres().subscribe((data: any) => {
+      this.genres = data;
     });
-
-    this.genres = [
-      {id : "1" , genre : "action"},
-      {id : "2" , genre : "fantasy"},
-      {id : "3" , genre : "triller"},
-      {id : "4" , genre : "fantastic"}
-    ]
   }
 
-  getBookByGenre(item){
+  getBookByGenre(item) {
 
-    console.log("getBookByGenre " + item);    
+    console.log("getBookByGenre " + item);
 
     this.store.dispatch(new BooksByGenreAction([{
-      id: "1" ,
-      title: "String" + Math.floor(Math.random() * 10) + 1 ,
-      author: "String" +  Math.floor(Math.random() * 10) + 1 ,
-      description: "String" +  Math.floor(Math.random() * 10) + 1 ,
+      id: "1",
+      title: "String" + Math.floor(Math.random() * 10) + 1,
+      author: "String" + Math.floor(Math.random() * 10) + 1,
+      description: "String" + Math.floor(Math.random() * 10) + 1,
       genre: { id: "1", genre: "action" },
       year: "String",
     }]));

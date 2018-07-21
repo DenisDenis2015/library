@@ -30,27 +30,6 @@ import java.util.stream.Stream;
 @SpringBootApplication
 public class BookListSpringBootStarter {
 
-	@Bean
-	CorsWebFilter corsFilter() {
-		CorsConfiguration config = new CorsConfiguration();
-		// Possibly...
-		// config.applyPermitDefaultValues()
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("http://localhost:4200");
-		config.addAllowedHeader("");
-		config.addAllowedMethod("");
-		PathPatternParser patternParser = new PathPatternParser();
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(patternParser);
-		source.registerCorsConfiguration("/**", config);
-		return new CorsWebFilter(source);
-	}
-
-/*	@Bean
-	@LoadBalanced
-	public WebClient.Builder loadBalancedWebClientBuilder() {
-		return WebClient.builder();
-	}*/
-
 	@Autowired
 	private ReactiveBookRepository bookRepository;
 

@@ -1,8 +1,8 @@
-import {BookModel} from "./book-model";
+import {IBookModel} from "./book-model";
 
 export interface AppState {
   bookState: BooksState;
 }
 export interface BooksState {
-  books: BookModel[];
+  books: IBookModel[];
 }
