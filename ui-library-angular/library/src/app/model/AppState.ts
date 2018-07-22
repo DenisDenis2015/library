@@ -6,8 +6,5 @@ export interface AppState {
 }
 export interface BooksState {
   books: IBookModel[];
-}
-
-export interface GenreState {
-  genres: IGenreModel[];
+  genres : IGenreModel[];
 }

@@ -23,7 +23,7 @@ export class BookListComponent implements OnInit {
 
   ngOnInit() {
     this.bookService.getBooksList().subscribe((data: IBookModel[]) => {
-      this.store.dispatch(new LoadBooksAction(data))
+      this.store.dispatch(new LoadBooksAction({books : data, genres : []}))
     })
   }
 }

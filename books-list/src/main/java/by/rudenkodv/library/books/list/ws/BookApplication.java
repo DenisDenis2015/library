@@ -35,7 +35,7 @@ public class BookApplication {
 		return bookRepository.findAll();
 	}
 
-	@GetMapping(value = "/get/all/genres")
+	@GetMapping(value = "/get/all/genres", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Genre> getAllGenres() {
 		return genreRepository.findAll();
 	}
