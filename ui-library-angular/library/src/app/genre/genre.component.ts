@@ -21,25 +21,13 @@ export class GenreComponent implements OnInit {
     //this.genres$ = store.select(fromRoot.getGenres);
   }
 
-  genres: IGenreModel[];
-
   ngOnInit() {
-    this.bookService.getGenres().subscribe((data: any) => {
-      this.genres = data;
+    this.bookService.getGenres().subscribe((data: IGenreModel[]) => {
+      //this.genres$.
     });
   }
 
   getBookByGenre(item) {
 
-    console.log("getBookByGenre " + item);
-
-    this.store.dispatch(new BooksByGenreAction([{
-      id: "1",
-      title: "String" + Math.floor(Math.random() * 10) + 1,
-      author: "String" + Math.floor(Math.random() * 10) + 1,
-      description: "String" + Math.floor(Math.random() * 10) + 1,
-      genre: { id: "1", genre: "action" },
-      year: "String",
-    }]));
   }
 }

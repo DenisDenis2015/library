@@ -30,18 +30,18 @@ public class BookApplication {
 		return "rest service is  available";
 	}
 
-	@GetMapping(value = "/get/all/books")
+	@GetMapping(value = "/get/all/books", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Book> getAllBooks() {
 		return bookRepository.findAll();
 	}
 
-	@GetMapping(value = "/get/all/genres", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	@GetMapping(value = "/get/all/genres")
 	public Flux<Genre> getAllGenres() {
 		return genreRepository.findAll();
 	}
 
-	@GetMapping(value = "/get/all/books/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	@GetMapping(value = "/get/all/books/stream" , produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Book> getAllBooksStream() {
-		return Flux.zip(Flux.interval(Duration.ofSeconds(1)) , bookRepository.findAll()).map(Tuple2::getT2);
+		return Flux.zip(Flux.interval(Duration.ofSeconds(3)) , bookRepository.findAll()).map(Tuple2::getT2);
 	}
 }

@@ -63,7 +63,7 @@ public class BookListSpringBootStarter {
 				book.setDescription("description" + RandomUtils.nextInt());
 				book.setGenre(genres.get(RandomUtils.nextInt(genres.size())));
 				return book;
-			}).limit(10).collect(Collectors.toList());
+			}).limit(3).collect(Collectors.toList());
 
 			bookRepository.deleteAll().subscribe( null, null, () -> {
 				bookRepository.saveAll(Flux.fromIterable(books)).subscribe(System.out::println);
