@@ -65,4 +65,22 @@ export class BookService {
       return () => eventSource.close();
     });
   }
+
+  getBooksByGenre(genre : String): Observable<IBookModel[]> {
+    return new Observable<IBookModel[]>(obs => {
+
+      const eventSource = new EventSource('http://localhost:9991/books-list/get/all/books/' + genre , httpOptions);
+
+      eventSource.onmessage = event => {
+        this.ngZone.run(() => obs.next(JSON.parse(event.data)));
+      };
+
+      eventSource.onerror = error => {
+        console.log(error);
+        eventSource.close();
+      };
+
+      return () => eventSource.close();
+    });
+  }
 }

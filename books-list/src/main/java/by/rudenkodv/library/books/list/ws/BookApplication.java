@@ -7,9 +7,7 @@ import by.rudenkodv.library.books.list.service.repository.ReactiveGenreRepositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.util.function.Tuple2;
 
@@ -33,6 +31,11 @@ public class BookApplication {
 	@GetMapping(value = "/get/all/books", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Book> getAllBooks() {
 		return bookRepository.findAll();
+	}
+
+	@GetMapping(value = "/get/all/books/{genreName}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<Book> getBooksByGenre(final @PathVariable(name = "genreName") String genreName) {
+		return bookRepository.findByGenre(genreName);
 	}
 
 	@GetMapping(value = "/get/all/genres", produces = MediaType.TEXT_EVENT_STREAM_VALUE)

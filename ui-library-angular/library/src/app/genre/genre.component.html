@@ -1,6 +1,6 @@
 <p-card>
   <div *ngFor="let item of genres$ | async">
-    <button pButton type="button" label="{{item.genre}}" (click)="getBookByGenre(item.genre)" class ="genre"></button>
+    <button pButton type="button" label="{{item.name}}" (click)="getBookByGenre(item.name)" class ="genre"></button>
   </div>
 </p-card>
 

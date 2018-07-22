@@ -12,10 +12,11 @@ export function reducer(state = initialState, action: fromActions.All) : BooksSt
 
   switch(action.type) {
 
-    case fromActions.GENRE: {
+    case fromActions.LOAD_BOOKS_BY_GENRE: {
+      const newBook: IBookModel[] = action.payload.books;
       return {
-        books: action.payload.books,
-        genres: action.payload.genres
+        books: state.books.concat(action.payload.books),
+        genres: state.genres
       };
     }
 
@@ -25,7 +26,7 @@ export function reducer(state = initialState, action: fromActions.All) : BooksSt
 
       return {
         books: state.books.concat(newBook),
-        genres: action.payload.genres
+        genres: state.genres
       };
     }
 
@@ -36,6 +37,13 @@ export function reducer(state = initialState, action: fromActions.All) : BooksSt
       return {
         books: state.books,
         genres: state.genres.concat(newGenres),
+      };
+    }
+
+    case fromActions.CLEAR_BOOK_STORE: {
+      return {
+        books: [],
+        genres: state.genres,
       };
     }
 

@@ -3,7 +3,7 @@ import { BookService } from "../service/book.service";
 import { IGenreModel } from "../model/genre-model";
 import { Store } from "@ngrx/store"
 import { BooksState } from '../model/AppState';
-import {BooksByGenreAction, LoadBooksAction, LoadGenresAction} from '../store/action/booksAction';
+import {BooksByGenreAction, ClearBookStoreAction, LoadBooksAction, LoadGenresAction} from '../store/action/booksAction';
 import * as fromRoot from "../store/reducer/booksReducer";
 import { Observable } from "rxjs/Observable";
 import { IBookModel } from "../model/book-model";
@@ -27,7 +27,10 @@ export class GenreComponent implements OnInit {
     });
   }
 
-  getBookByGenre(item) {
-
+  getBookByGenre(name) {
+    this.store.dispatch(new ClearBookStoreAction({books : [], genres : []}));
+    this.bookService.getBooksByGenre(name).subscribe((data: IBookModel[]) => {
+      this.store.dispatch(new BooksByGenreAction({books : data, genres : []}))
+    });
   }
 }
