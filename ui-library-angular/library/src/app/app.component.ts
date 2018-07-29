@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  color1  = "lightpink";
-  color2 = "lightgreen";
-  color3 = "lightblue";
+  color1 = 'lightpink';
+  color2 = 'lightgreen';
+  color3 = 'lightblue';
 
 }

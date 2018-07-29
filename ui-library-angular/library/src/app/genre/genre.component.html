@@ -2,5 +2,6 @@
   <div *ngFor="let item of genres$ | async">
     <button pButton type="button" label="{{item.name}}({{item.count}})" (click)="getBookByGenre(item.name)" class ="genre"></button>
   </div>
+  <button pButton type="button" label="all" (click)="getAllBooks()" class ="genre"></button>
 </p-card>
 
