@@ -5,12 +5,11 @@ import {GenreComponent} from './genre/genre.component';
 import {SearchStringComponent} from './search-string/search-string.component';
 import {BookListComponent} from './book-list/book-list.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ButtonModule, CardModule} from "primeng/primeng";
-import {BookService} from "./service/book.service";
+import {ButtonModule, CardModule} from 'primeng/primeng';
+import {BookService} from './service/book.service';
 import { HttpClientModule } from '@angular/common/http';
-import {reducer} from "./store/reducer/booksReducer";
 import { StoreModule } from '@ngrx/store';
-import { metaReducers, reducers} from './store/reducer/reducers'
+import { metaReducers, reducers} from './store/reducer/reducers';
 
 
 @NgModule({

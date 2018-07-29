@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { BookService } from "../service/book.service";
-import { IGenreModel } from "../model/genre-model";
-import { Store } from "@ngrx/store"
+import { BookService } from '../service/book.service';
+import { IGenreModel } from '../model/genre-model';
+import { Store } from '@ngrx/store';
 import { BooksState } from '../model/AppState';
 import {BooksByGenreAction, ClearBookStoreAction, LoadBooksAction, LoadGenresAction} from '../store/action/booksAction';
-import * as fromRoot from "../store/reducer/booksReducer";
-import { Observable } from "rxjs/Observable";
-import { IBookModel } from "../model/book-model";
+import * as fromRoot from '../store/reducer/booksReducer';
+import { Observable } from 'rxjs/Observable';
+import { IBookModel } from '../model/book-model';
 
 @Component({
   selector: 'app-genre',
@@ -23,14 +23,21 @@ export class GenreComponent implements OnInit {
 
   ngOnInit() {
     this.bookService.getGenres().subscribe((data: IGenreModel[]) => {
-      this.store.dispatch(new LoadGenresAction({books : [], genres : data}))
+      this.store.dispatch(new LoadGenresAction({books : [], genres : data}));
     });
   }
 
   getBookByGenre(name) {
-    this.store.dispatch(new ClearBookStoreAction({books : [], genres : []}));
+    this.store.dispatch(new ClearBookStoreAction({books: [], genres: []}));
     this.bookService.getBooksByGenre(name).subscribe((data: IBookModel[]) => {
-      this.store.dispatch(new BooksByGenreAction({books : data, genres : []}))
+      this.store.dispatch(new BooksByGenreAction({books: data, genres: []}));
+    });
+  }
+
+  getAllBooks() {
+    this.store.dispatch(new ClearBookStoreAction({books: [], genres: []}));
+    this.bookService.getBooksList().subscribe((data: IBookModel[]) => {
+      this.store.dispatch(new LoadBooksAction({books : data, genres : []}));
     });
   }
 }
