@@ -18,8 +18,7 @@ import { BookComponent } from './book/book.component';
     BrowserAnimationsModule,
     ButtonModule,
     CardModule
-  ],
-  declarations: [BookComponent]
+  ]
 })
 export class PrimeNGModule {
 }
