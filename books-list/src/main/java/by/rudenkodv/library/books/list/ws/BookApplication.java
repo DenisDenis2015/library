@@ -9,6 +9,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 
 import java.time.Duration;
@@ -40,11 +41,16 @@ public class BookApplication {
 
 	@GetMapping(value = "/get/all/genres", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Genre> getAllGenres() {
-		return genreRepository.findAll();
+		return genreRepository.getAllGenres();
 	}
 
 	@GetMapping(value = "/get/all/books/stream" , produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Book> getAllBooksStream() {
 		return Flux.zip(Flux.interval(Duration.ofSeconds(3)) , bookRepository.findAll()).map(Tuple2::getT2);
+	}
+
+	@GetMapping(value = "/get/all/books/count/{genreName}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Mono <Long> countByGenreName(final @PathVariable(name = "genreName") String genreName) {
+		return bookRepository.countByGenreName(genreName);
 	}
 }

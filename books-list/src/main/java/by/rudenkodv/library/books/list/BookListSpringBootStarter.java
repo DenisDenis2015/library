@@ -44,7 +44,9 @@ public class BookListSpringBootStarter {
                         new Genre("fantastic"), new Genre("fantasy")
                 ))).subscribe(null, null, () -> {
                     bookRepository.deleteAll().subscribe(null, null, () -> {
-                        bookRepository.saveAll(Flux.fromIterable(getBooks())).subscribe(System.out::println);
+                        bookRepository.saveAll(Flux.fromIterable(getBooks())).subscribe((item)-> {
+                            System.out.println(item);
+                        });
                     });
                 });
             });

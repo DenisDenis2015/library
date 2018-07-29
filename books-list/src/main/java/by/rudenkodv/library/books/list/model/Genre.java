@@ -23,4 +23,6 @@ public class Genre implements Serializable {
 	@NonNull
 	private String name;
 
+	private Long count;
+
 }

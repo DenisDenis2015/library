@@ -13,4 +13,7 @@ public interface ReactiveBookRepository extends ReactiveCrudRepository<Book, Str
 
     @Query("{'genre.name' : ?0}")
     public Flux<Book> findByGenre(String name);
+
+    public Mono<Long> countByGenreName(String genreName);
+
 }
