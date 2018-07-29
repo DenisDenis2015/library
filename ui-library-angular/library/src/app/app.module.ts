@@ -10,6 +10,7 @@ import {BookService} from './service/book.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers} from './store/reducer/reducers';
+import { BookComponent } from './book/book.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { metaReducers, reducers} from './store/reducer/reducers';
     BrowserAnimationsModule,
     ButtonModule,
     CardModule
-  ]
+  ],
+  declarations: [BookComponent]
 })
 export class PrimeNGModule {
 }
@@ -27,7 +29,8 @@ export class PrimeNGModule {
     AppComponent,
     GenreComponent,
     SearchStringComponent,
-    BookListComponent
+    BookListComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,
