@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {IBookModel, BookModel} from "../model/book-model";
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from "rxjs/Rx";
@@ -11,60 +11,76 @@ import {
   switchMap,
   tap
 } from "rxjs/operators";
+import {BooksState} from "../model/AppState";
+import {LoadBooksAction} from "../store/action/booksAction";
 
 const EventSource: any = window['EventSource'];
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Connection': 'keep-alive',
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache'
+  })
 };
 
 @Injectable()
 export class BookService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private ngZone: NgZone) {
+  }
 
   getGenres(): Observable<IGenreModel[]> {
-    return Observable.create((observer) => {
-      const eventSource = new EventSource('http://localhost:9991/books-list/get/all/genres');
-      eventSource.onmessage = (event) => {
-        const genre = JSON.parse(event.data);
-        observer.next(new GenreModel(
-          genre['id'], genre['genre']));
+    return new Observable<IGenreModel[]>(obs => {
+
+      const eventSource = new EventSource('http://localhost:9991/books-list/get/all/genres', httpOptions);
+
+      eventSource.onmessage = event => {
+        this.ngZone.run(() => obs.next(JSON.parse(event.data)));
       };
-      eventSource.onerror = (error) => observer.error('eventSource.onerror: ' + error);
+
+      eventSource.onerror = error => {
+        console.log(error);
+        eventSource.close();
+      };
+
       return () => eventSource.close();
     });
   }
 
   getBooksList(): Observable<IBookModel[]> {
-    return Observable.create((observer) => {
+    return new Observable<IBookModel[]>(obs => {
+
       const eventSource = new EventSource('http://localhost:9991/books-list/get/all/books', httpOptions);
-      eventSource.onmessage = (event) => {
-        const book = JSON.parse(event.data);
-        observer.next([new BookModel(
-          book['id'], book['title'], book['author'], book['description'], book['genre'], book['year']
-        )]);
+
+      eventSource.onmessage = event => {
+        this.ngZone.run(() => obs.next(JSON.parse(event.data)));
       };
 
-      eventSource.onerror = (error) => observer.error('eventSource.onerror: ' + error);
+      eventSource.onerror = error => {
+        console.log(error);
+        eventSource.close();
+      };
+
       return () => eventSource.close();
     });
   }
 
-  getBooksList2(): Observable<IBookModel[]> {
-    return this.http.get('http://localhost:9991/books-list/get/all/books').pipe(
-      map(res => {
-        return JSON.parse(res.toString()).results.map(item =>{
-            return new BookModel(
-              item['id'], item['title'], item['author'], item['description'], item['genre'], item['year']
-            )
-        })
-      })
-    )
-  }
+  getBooksByGenre(genre : String): Observable<IBookModel[]> {
+    return new Observable<IBookModel[]>(obs => {
 
-  getBooksList3(): Observable<Object> {
-    return this.http.get('http://localhost:9991/books-list/get/all/books', httpOptions);
-  }
+      const eventSource = new EventSource('http://localhost:9991/books-list/get/all/books/' + genre , httpOptions);
 
+      eventSource.onmessage = event => {
+        this.ngZone.run(() => obs.next(JSON.parse(event.data)));
+      };
+
+      eventSource.onerror = error => {
+        console.log(error);
+        eventSource.close();
+      };
+
+      return () => eventSource.close();
+    });
+  }
 }

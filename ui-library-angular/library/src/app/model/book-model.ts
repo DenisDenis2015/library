@@ -9,6 +9,12 @@ export interface IBookModel {
   year:String;
 }
 
+export interface IBookModelStream {
+  data : {
+    book : IBookModel
+  }
+}
+
 export class BookModel implements IBookModel {
   id:String;
   title:String;

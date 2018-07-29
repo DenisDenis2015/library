@@ -10,14 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsWebFilter;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.pattern.PathPatternParser;
+import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -30,44 +24,47 @@ import java.util.stream.Stream;
 @SpringBootApplication
 public class BookListSpringBootStarter {
 
-	@Autowired
-	private ReactiveBookRepository bookRepository;
+    @Autowired
+    private ReactiveBookRepository bookRepository;
 
-	@Autowired
-	private ReactiveGenreRepository genreRepository;
+    @Autowired
+    private ReactiveGenreRepository genreRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(BookListSpringBootStarter.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BookListSpringBootStarter.class, args);
+    }
 
-	@Bean
-	CommandLineRunner runner() {
-		return args -> {
+    @Bean
+    CommandLineRunner runner() {
+        return args -> {
 
-			Mono<Void> deleteAllGenre = genreRepository.deleteAll();
+            genreRepository.deleteAll().subscribe(null, null, () -> {
+                genreRepository.saveAll(Flux.fromStream(Stream.of(
+                        new Genre("horrors"), new Genre("action"), new Genre("adventure"),
+                        new Genre("fantastic"), new Genre("fantasy")
+                ))).subscribe(null, null, () -> {
+                    bookRepository.deleteAll().subscribe(null, null, () -> {
+                        bookRepository.saveAll(Flux.fromIterable(getBooks())).subscribe((item)-> {
+                            System.out.println(item);
+                        });
+                    });
+                });
+            });
+        };
+    }
 
-			Flux<Genre> saveAllGenre = genreRepository.saveAll(Flux.fromStream(Stream.of(
-					new Genre("horrors"), new Genre("action"), new Genre("adventure"),
-					new Genre("fantastic"), new Genre("fantasy")
-			)));
+    private List<Book> getBooks() {
 
-			Flux.concat(deleteAllGenre, saveAllGenre);
+        List<Genre> genres = genreRepository.findAll().collectList().block();
 
-			List<Genre> genres = genreRepository.findAll().toStream().collect(Collectors.toList());
-
-			List<Book> books = Stream.generate(() -> {
-				Book book = new Book();
-				book.setAuthor("Author" + RandomUtils.nextInt());
-				book.setTitle("Title" + RandomUtils.nextInt());
-				book.setYear(new Date());
-				book.setDescription("description" + RandomUtils.nextInt());
-				book.setGenre(genres.get(RandomUtils.nextInt(genres.size())));
-				return book;
-			}).limit(10).collect(Collectors.toList());
-
-			bookRepository.deleteAll().subscribe( null, null, () -> {
-				bookRepository.saveAll(Flux.fromIterable(books)).subscribe(System.out::println);
-			});
-		};
-	}
+        return Stream.generate(() -> {
+            Book book = new Book();
+            book.setAuthor("Author" + RandomUtils.nextInt());
+            book.setTitle("Title" + RandomUtils.nextInt());
+            book.setYear(new Date());
+            book.setDescription("description" + RandomUtils.nextInt());
+            book.setGenre(genres.get(RandomUtils.nextInt(genres.size())));
+            return book;
+        }).limit(10).collect(Collectors.toList());
+    }
 }

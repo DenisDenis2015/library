@@ -1,14 +1,17 @@
 export interface IGenreModel {
-  id:String;
-  genre:String;
+  id: String;
+  name: String;
+  count: number;
 }
 
 export class GenreModel implements IGenreModel {
-  id:String;
-  genre:String;
+  id: String;
+  name: String;
+  count: number;
 
-  constructor (id:String, genre:String) {
+  constructor(id: String, name: String, count: number) {
     this.id = id;
-    this.genre = genre;
+    this.name = name;
+    this.count = count;
   }
 }

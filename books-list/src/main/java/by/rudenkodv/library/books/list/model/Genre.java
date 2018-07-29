@@ -21,6 +21,8 @@ public class Genre implements Serializable {
 	private String id;
 
 	@NonNull
-	private String genre;
+	private String name;
+
+	private Long count;
 
 }
