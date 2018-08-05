@@ -13,6 +13,7 @@
 		<module>gateway-zuul</module>
 		<module>books-data</module>
 		<module>books-list</module>
+		<module>books-report</module>
 	</modules>
 
 </project>
