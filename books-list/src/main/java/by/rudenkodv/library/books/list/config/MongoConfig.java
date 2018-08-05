@@ -1,4 +1,4 @@
-package by.rudenkodv.library.books.list.springboot;
+package by.rudenkodv.library.books.list.config;
 
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
