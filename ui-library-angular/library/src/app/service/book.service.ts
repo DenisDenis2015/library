@@ -1,18 +1,8 @@
 import {Injectable, NgZone} from '@angular/core';
-import {IBookModel, BookModel} from "../model/book-model";
+import {IBookModel, BookModel} from '../model/book-model';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from "rxjs/Rx";
-import {IGenreModel, GenreModel} from "../model/genre-model";
-import {Store} from "@ngrx/store";
-import {
-  map,
-  debounceTime,
-  distinctUntilChanged,
-  switchMap,
-  tap
-} from "rxjs/operators";
-import {BooksState} from "../model/AppState";
-import {LoadBooksAction} from "../store/action/booksAction";
+import {Observable} from 'rxjs/Rx';
+import {IGenreModel, GenreModel} from '../model/genre-model';
 
 const EventSource: any = window['EventSource'];
 
@@ -66,10 +56,34 @@ export class BookService {
     });
   }
 
-  getBooksByGenre(genre : String): Observable<IBookModel[]> {
+  getBooksByGenre(genre: String): Observable<IBookModel[]> {
     return new Observable<IBookModel[]>(obs => {
 
-      const eventSource = new EventSource('http://localhost:9991/books-list/get/all/books/' + genre , httpOptions);
+      const eventSource = new EventSource('http://localhost:9991/books-list/get/all/books/' + genre, httpOptions);
+
+      eventSource.onmessage = event => {
+        this.ngZone.run(() => obs.next(JSON.parse(event.data)));
+      };
+
+      eventSource.onerror = error => {
+        console.log(error);
+        eventSource.close();
+      };
+
+      return () => eventSource.close();
+    });
+  }
+
+  saveBook(book: IBookModel): Observable<IBookModel[]> {
+    return this.http.post<IBookModel>('http://localhost:9991/books-list/save/book', book, httpOptions)
+      .pipe(
+        catchError(this.handleError('addHero', book))
+      );
+  }
+
+  saveBook2(book: IBookModel): Observable<IBookModel[]> {
+    return new Observable<IBookModel[]>(obs => {
+      const eventSource = new EventSource('http://localhost:9991/books-list/save/book', book , httpOptions);
 
       eventSource.onmessage = event => {
         this.ngZone.run(() => obs.next(JSON.parse(event.data)));

@@ -53,4 +53,9 @@ public class BookApplication {
 	public Mono <Long> countByGenreName(final @PathVariable(name = "genreName") String genreName) {
 		return bookRepository.countByGenreName(genreName);
 	}
+
+	@PostMapping(value= "save/book",  produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Mono<Book> saveBook(@RequestBody Book book){
+		return bookRepository.save(book);
+	}
 }

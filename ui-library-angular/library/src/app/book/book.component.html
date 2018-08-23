@@ -1,15 +1,44 @@
 <p-card title="Advanced Card" subtitle="Subtitle" [style]="{width: '360px'}" styleClass="ui-card-shadow">
-  <p-header>
-    <div>Title : {{book.title}}</div>
-    <p>Genre : {{book.genre.name}} Year: {{book.year}}</p>
-    <div>Author : {{book.author}}</div>
-    <img src="Card" src="assets/showcase/images/usercard.png">
-  </p-header>
-  <div>{{book.description}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
-    repudiandae numquam deserunt
-    quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+  <div [hidden]='editMode'>
+    <p-header>
+      <div>Title : {{book.title}}</div>
+      <p>Genre : {{book.genre.name}} Year: {{book.year}}</p>
+      <div>Author : {{book.author}}</div>
+      <img src="Card" src="assets/showcase/images/usercard.png">
+    </p-header>
+    <div>{{book.description}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
+      repudiandae numquam deserunt
+      quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+    </div>
+    <p-footer>
+      <button pButton type="button" label="Read" icon="fa-check"></button>
+      <button pButton type="button" label="Edit" icon="fa-check" (click)="edit()"></button>
+    </p-footer>
   </div>
-  <p-footer>
-    <button pButton type="button" label="Read" icon="fa-check"></button>
-  </p-footer>
+
+  <div [hidden]='!editMode'>
+    <p-header>
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" [(ngModel)]="book.title" name="title">
+
+      <label for="genre">Genre</label>
+      <input type="text" class="form-control" id="genre" [(ngModel)]="book.genre.name" name="genre">
+      <label for="year">Year</label>
+      <input type="text" class="form-control" id="year" [(ngModel)]="book.year" name="year">
+
+      <label for="author">Author</label>
+      <input type="text" class="form-control" id="author" [(ngModel)]="book.author" name="author">
+      <img src="Card" src="assets/showcase/images/usercard.png">
+    </p-header>
+
+    <label for="description">Description</label>
+    <div>
+      <textarea [(ngModel)]="book.description" id="description"></textarea>
+    </div>
+    <p-footer>
+      <button pButton type="button" label="Read" icon="fa-check"></button>
+      <button pButton type="button" label="Cancel" class = "ui-button-warning" (click)="edit()"></button>
+      <button pButton type="button" label="Save" class ="ui-button-success" (click)="save()"></button>
+    </p-footer>
+  </div>
 </p-card>
