@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers} from './store/reducer/reducers';
 import { BookComponent } from './book/book.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ export class PrimeNGModule {
     BrowserModule,
     PrimeNGModule,
     HttpClientModule,
+    FormsModule,
     StoreModule.forRoot(reducers , { metaReducers })
   ],
   providers: [BookService],

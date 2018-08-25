@@ -16,5 +16,10 @@ spring:
         - RewritePath=/books-list/(?<path>.*), /$\{path}
 
 logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          netflix: trace
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"

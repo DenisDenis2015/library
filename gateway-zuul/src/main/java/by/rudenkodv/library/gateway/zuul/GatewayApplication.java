@@ -13,6 +13,10 @@ import org.springframework.web.util.pattern.PathPatternParser;
 @EnableDiscoveryClient
 public class GatewayApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(GatewayApplication.class, args);
+    }
+
     @Bean
     CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
@@ -25,9 +29,5 @@ public class GatewayApplication {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(patternParser);
         source.registerCorsConfiguration("/**", config);
         return new CorsWebFilter(source);
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class, args);
     }
 }
