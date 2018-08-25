@@ -54,7 +54,7 @@ public class BookApplication {
 		return bookRepository.countByGenreName(genreName);
 	}
 
-	@PostMapping(value= "save/book",  produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	@PostMapping(value= "save/book",  produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Mono<Book> saveBook(@RequestBody Book book){
 		return bookRepository.save(book);
 	}

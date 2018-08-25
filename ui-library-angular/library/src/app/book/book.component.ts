@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BookModel} from '../model/book-model';
+import {BookModel, IBookModel} from '../model/book-model';
 import {BookService} from '../service/book.service';
 import {Store} from '@ngrx/store';
 import {BooksState} from '../model/AppState';
@@ -29,7 +29,10 @@ export class BookComponent implements OnInit {
   }
 
   save() {
-    this.bookService.saveBook(this.book);
+    this.bookService.saveBook(this.book)
+      .subscribe((result: IBookModel) => {
+        this.editMode = false;
+        this.book = result;
+      })
   }
-
 }

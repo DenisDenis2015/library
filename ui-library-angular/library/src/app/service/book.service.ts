@@ -8,9 +8,19 @@ const EventSource: any = window['EventSource'];
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Connection': 'keep-alive',
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache'
+    /*'Connection': 'keep-alive',*/
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache',
+    'Accept' : 'text/event-stream'
+  })
+};
+
+const httpOptionsJson = {
+  headers: new HttpHeaders({
+    /*'Connection': 'keep-alive',*/
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache',
+    'Accept' : 'application/json'
   })
 };
 
@@ -74,27 +84,7 @@ export class BookService {
     });
   }
 
-  saveBook(book: IBookModel): Observable<IBookModel[]> {
-    return this.http.post<IBookModel>('http://localhost:9991/books-list/save/book', book, httpOptions)
-      .pipe(
-        catchError(this.handleError('addHero', book))
-      );
-  }
-
-  saveBook2(book: IBookModel): Observable<IBookModel[]> {
-    return new Observable<IBookModel[]>(obs => {
-      const eventSource = new EventSource('http://localhost:9991/books-list/save/book', book , httpOptions);
-
-      eventSource.onmessage = event => {
-        this.ngZone.run(() => obs.next(JSON.parse(event.data)));
-      };
-
-      eventSource.onerror = error => {
-        console.log(error);
-        eventSource.close();
-      };
-
-      return () => eventSource.close();
-    });
+  saveBook(book: IBookModel): Observable<IBookModel> {
+    return this.http.post<IBookModel>('http://localhost:9991/books-list/save/book', book, httpOptionsJson);
   }
 }
