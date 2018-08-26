@@ -22,6 +22,9 @@ export class BookComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.book.id === null || this.book.id === '') {
+      this.editMode = true
+    }
   }
 
   edit() {

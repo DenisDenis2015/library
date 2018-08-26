@@ -6,6 +6,7 @@ export const LOAD_BOOKS_BY_GENRE = 'Load books by genre';
 export const LOAD_BOOKS = 'Load books';
 export const LOAD_GENRES = 'Load genres';
 export const CLEAR_BOOK_STORE = 'Clear book store';
+export const ADD_NEW_BOOK_STORE = 'add new book to the store';
 
 export class BooksByGenreAction implements Action {
 
@@ -13,7 +14,6 @@ export class BooksByGenreAction implements Action {
 
   constructor(public payload: { books: IBookModel[], genres: IGenreModel[] }) {
   }
-
 }
 
 export class LoadBooksAction implements Action {
@@ -22,7 +22,6 @@ export class LoadBooksAction implements Action {
 
   constructor(public payload: { books: IBookModel[], genres: IGenreModel[] }) {
   }
-
 }
 
 export class LoadGenresAction implements Action {
@@ -31,7 +30,6 @@ export class LoadGenresAction implements Action {
 
   constructor(public payload: { books: IBookModel[], genres: IGenreModel[] }) {
   }
-
 }
 
 export class ClearBookStoreAction implements Action {
@@ -40,8 +38,20 @@ export class ClearBookStoreAction implements Action {
 
   constructor(public payload: { books: IBookModel[], genres: IGenreModel[] }) {
   }
-
 }
 
-export type All = BooksByGenreAction | LoadBooksAction | LoadGenresAction | ClearBookStoreAction;
+export class AddNewBookStoreAction implements Action {
+
+  readonly type = ADD_NEW_BOOK_STORE;
+
+  constructor(public payload: { books: IBookModel[], genres: IGenreModel[] }) {
+  }
+}
+
+export type All =
+  BooksByGenreAction
+  | LoadBooksAction
+  | LoadGenresAction
+  | ClearBookStoreAction
+  | AddNewBookStoreAction;
 

@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import * as fromRoot from '../store/reducer/booksReducer';
 import {Store} from '@ngrx/store';
 import {BooksState} from '../model/AppState';
-import {LoadBooksAction} from '../store/action/booksAction';
+import {AddNewBookStoreAction, LoadBooksAction} from '../store/action/booksAction';
 
 @Component({
   selector: 'app-book-list',
@@ -27,7 +27,7 @@ export class BookListComponent implements OnInit {
     });
   }
 
-
-
-
+  addBook(){
+    this.store.dispatch(new AddNewBookStoreAction({books: [], genres: []}));
+  }
 }

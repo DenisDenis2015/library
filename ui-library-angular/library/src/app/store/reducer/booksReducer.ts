@@ -1,8 +1,8 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {BooksState} from '../../model/AppState';
 import * as fromActions from '../action/booksAction';
-import {IBookModel} from '../../model/book-model';
-import {IGenreModel} from '../../model/genre-model';
+import {BookModel, IBookModel} from '../../model/book-model';
+import {GenreModel, IGenreModel} from '../../model/genre-model';
 
 
 export const initialState: BooksState = {books: [], genres: []};
@@ -44,6 +44,14 @@ export function reducer(state = initialState, action: fromActions.All): BooksSta
         books: [],
         genres: state.genres,
       };
+    }
+
+    case fromActions.ADD_NEW_BOOK_STORE: {
+      let book: IBookModel = new BookModel(null, "", "", "", new GenreModel("", ""), "");
+      return {
+        books: state.books.concat(book),
+        genres: state.genres
+      }
     }
 
     default: {
