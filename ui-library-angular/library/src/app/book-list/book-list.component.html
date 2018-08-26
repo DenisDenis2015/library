@@ -1,3 +1,11 @@
 <div *ngFor="let book of books$ | async" class="ui-g-4">
   <app-book [book]="book"></app-book>
 </div>
+
+<div class="ui-g-4">
+  <p-card title="Add book card" [style]="{width: '360px'}" styleClass="ui-card-shadow">
+    <p-footer>
+      <button pButton type="button" label="addBook" class="ui-button-success" (click)="addBook()"></button>
+    </p-footer>
+  </p-card>
+</div>
