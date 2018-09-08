@@ -11,8 +11,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 import reactor.core.publisher.Flux;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +48,7 @@ public class BookListSpringBootStarter {
                         new Genre("fantastic"), new Genre("fantasy")
                 ))).subscribe(null, null, () -> {
                     bookRepository.deleteAll().subscribe(null, null, () -> {
-                        bookRepository.saveAll(Flux.fromIterable(getBooks())).subscribe((item)-> {
+                        bookRepository.saveAll(Flux.fromIterable(getBooks())).subscribe((item) -> {
                             System.out.println(item);
                         });
                     });
@@ -54,6 +60,23 @@ public class BookListSpringBootStarter {
     private List<Book> getBooks() {
 
         List<Genre> genres = genreRepository.findAll().collectList().block();
+
+        try {
+
+            byte[] fileContent = Files.readAllBytes(Paths.get("/home/denis/Work/Project/library/books-list/src/main/resources/book/content/451fahrenheit.pdf"));
+
+            RestTemplate restTemplate = new RestTemplate();
+            String avaliable = restTemplate.getForObject("http://localhost:9991/book-data/available", String.class);
+            System.out.println(avaliable);
+
+            RestTemplate restTemplate2 = new RestTemplate();
+            ResponseEntity<String> idImage =
+                    restTemplate2.postForEntity("http://localhost:9991/book-data/save/image/data", fileContent, String.class);
+            System.out.println(idImage);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
 
         return Stream.generate(() -> {
             Book book = new Book();
