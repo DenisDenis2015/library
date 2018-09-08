@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -20,9 +21,9 @@ public class Book implements Serializable {
 	@Id
     private String id;
     
-    private String title, author, description;
+    private String title, author, description, imageId, contentId;
     
     private Genre genre;
     
-    private Date year;
+    private LocalDate year;
 }

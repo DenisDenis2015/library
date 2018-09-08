@@ -1,0 +1,20 @@
+<books>
+    <book>
+        <title>451 по фаренгейту</title>
+        <author>Бредбери</author>
+        <description>все оч плохо</description>
+        <genre>Антиутопия</genre>
+        <year>1984/11/11</year>
+        <image>/home/denis/Work/Project/library/books-list/src/main/resources/book/img/451fahrenheit.jpg</image>
+        <content>home/denis/Work/Project/library/books-list/src/main/resources/book/content/451fahrenheit.pdf</content>
+    </book>
+    <book>
+        <title>Марсианские хроники</title>
+        <author>Бредбери</author>
+        <description>все оч плохо</description>
+        <genre>Фантастика</genre>
+        <year>1984/11/11</year>
+        <image>/home/denis/Work/Project/library/books-list/src/main/resources/book/img/marsian_chronics.jpg</image>
+        <content>/home/denis/Work/Project/library/books-list/src/main/resources/book/content/Marsianskie hroniki.pdf</content>
+    </book>
+</books>
