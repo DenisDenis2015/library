@@ -27,8 +27,6 @@ public class BookDataSpringBootStarter {
     CommandLineRunner runner() {
         return args -> {
             System.out.println("books-data works....");
-            bookImageService.deleteAll();
-            bookDataService.deleteAll();
         };
     }
 }

@@ -44,4 +44,14 @@ export class BookComponent implements OnInit {
         this.book = result;
       })
   }
+
+  read() {
+    this.bookService.getPdfContent(this.book.id).subscribe((content: any) => {
+      let newPdfWindow = window.open("localhot:4200/", "Print");
+      let contentW = encodeURIComponent(content.data);
+      let iframeStart = "<iframe width='100%' height='100%' src='data:application/pdf;base64, ";
+      let iframeEnd = "'></iframe>";
+      newPdfWindow.document.write(iframeStart + contentW + iframeEnd);
+    })
+  }
 }
