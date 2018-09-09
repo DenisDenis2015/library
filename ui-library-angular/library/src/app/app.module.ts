@@ -12,13 +12,19 @@ import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers} from './store/reducer/reducers';
 import { BookComponent } from './book/book.component';
 import {FormsModule} from '@angular/forms';
+import {FieldsetModule} from 'primeng/fieldset';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {PanelModule} from 'primeng/panel';
 
 
 @NgModule({
   exports: [
     BrowserAnimationsModule,
     ButtonModule,
-    CardModule
+    CardModule,
+    FieldsetModule,
+    ScrollPanelModule,
+    PanelModule
   ]
 })
 export class PrimeNGModule {

@@ -2,19 +2,42 @@
     <book>
         <title>451 по фаренгейту</title>
         <author>Бредбери</author>
-        <description>все оч плохо</description>
+        <description>Гай Монтэг, сжигают любые найденные книги. В ходе романа Монтэг разочаровывается в идеалах
+            общества, частью которого он является, становится изгоем и присоединяется к небольшой подпольной группе
+            маргиналов, сторонники которой заучивают тексты книг, чтобы спасти их для потомков. Название книги
+            объясняется в эпиграфе: «451 градус по Фаренгейту — температура, при которой воспламеняется и горит бумага».
+        </description>
         <genre>Антиутопия</genre>
         <year>1984/11/11</year>
-        <image>/home/denis/Work/Project/library/books-list/src/main/resources/book/img/451fahrenheit.jpg</image>
-        <content>home/denis/Work/Project/library/books-list/src/main/resources/book/content/451fahrenheit.pdf</content>
+        <image>book/img/451fahrenheit.jpg</image>
+        <content>book/content/451fahrenheit.pdf</content>
     </book>
     <book>
         <title>Марсианские хроники</title>
         <author>Бредбери</author>
-        <description>все оч плохо</description>
+        <description>Фактически содержание книги представляет собой нечто среднее между собранием коротких историй и
+            эпизодических новелл, включая ранее опубликованные в литературных журналах во второй половине 40-х годов
+            рассказы. В «Марсианских хрониках» отражены основные проблемы, волнующие американское общество в начале
+            1950-х: угроза ядерной войны, тоска по более простой жизни, реакции против расизма и цензуры. Жанр научной
+            фантастики нравился Брэдбери именно возможностью показать существующее положение дел в мире, используя для
+            этого декорации вымышленного будущего, и таким образом оградить людей от повторения и усугубления ошибок
+            прошлого.
+        </description>
         <genre>Фантастика</genre>
         <year>1984/11/11</year>
-        <image>/home/denis/Work/Project/library/books-list/src/main/resources/book/img/marsian_chronics.jpg</image>
-        <content>/home/denis/Work/Project/library/books-list/src/main/resources/book/content/Marsianskie hroniki.pdf</content>
+        <image>book/img/marsian_chronics.jpg</image>
+        <content>book/content/Marsianskie hroniki.pdf</content>
+    </book>
+    <book>
+        <title>Путь королей</title>
+        <author>Брендон Сандерсон</author>
+        <description>Масштабная сага погружает читателя в удивительный мир, не уступающий мирам Р. Р. Толкиена, Р.
+            Джордана и Р. Сальваторе. Уникальная флора и фауна, тщательно продуманное политическое устройство и богатая
+            духовная культура – здесь нет ничего случайного.
+        </description>
+        <genre>Фэнтази</genre>
+        <year>1984/11/11</year>
+        <image>book/img/the way of kings.jpg</image>
+        <content>book/content/the way of kings.pdf</content>
     </book>
 </books>

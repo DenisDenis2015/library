@@ -26,13 +26,13 @@ public class BookDataRest {
     }
 
     @GetMapping(value = "/get/book/data/{id}")
-    public byte[] getBookData(final @PathVariable(name = "id") String id) {
-        return new byte[0];
+    public BookData getBookData(final @PathVariable(name = "id") String id) {
+        return bookDataService.findByBookId(id);
     }
 
     @GetMapping(value = "/get/image/data/{id}")
-    public byte[] getImage(final @PathVariable(name = "id") String id) {
-        return new byte[0];
+    public Image getImage(final @PathVariable(name = "id") String id) {
+        return bookImageService.findByBookId(id);
     }
 
     @PostMapping(value = "save/book/data/{bookId}")

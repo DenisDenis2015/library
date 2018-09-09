@@ -23,6 +23,7 @@ export class BookModel implements IBookModel {
   genre: IGenreModel;
   year: String;
 
+
   constructor(id: String, title: String, author: String, description: String, genre: IGenreModel, year: String) {
     this.id = id;
     this.title = title;
