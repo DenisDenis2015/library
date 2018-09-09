@@ -15,6 +15,8 @@ export class BookComponent implements OnInit {
   @Input()
   book: BookModel;
 
+  imageSrc: any;
+
   editMode;
 
   constructor(private bookService: BookService, private store: Store<BooksState>) {
@@ -24,6 +26,10 @@ export class BookComponent implements OnInit {
   ngOnInit() {
     if (this.book.id === null || this.book.id === '') {
       this.editMode = true
+    } else if (this.book.id != null) {
+      this.bookService.getImage(this.book.id).subscribe((img: any) => {
+        this.imageSrc = 'data:image/jpeg;base64,' + img.data
+      })
     }
   }
 

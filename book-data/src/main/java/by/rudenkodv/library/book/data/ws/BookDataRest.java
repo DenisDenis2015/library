@@ -54,4 +54,10 @@ public class BookDataRest {
         Image imagePersistence = bookImageService.save(image);
         return imagePersistence.getId();
     }
+
+    @GetMapping(value = "/delete/all/data")
+    public void deleteAllData(){
+        bookImageService.deleteAll();;
+        bookDataService.deleteAll();
+    }
 }

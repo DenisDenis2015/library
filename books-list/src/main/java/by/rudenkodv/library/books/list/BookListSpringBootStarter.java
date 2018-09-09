@@ -51,6 +51,8 @@ public class BookListSpringBootStarter {
     CommandLineRunner runner() {
         return args -> {
 
+            new RestTemplate().getForObject(BOOK_DATA_SERVICE_URL + "/delete/all/data", Void.class);
+
             genreRepository.deleteAll().subscribe(null, null, () -> {
                 genreRepository.saveAll(Flux.fromStream(Stream.of(
                         new Genre("horrors"), new Genre("action"), new Genre("adventure"),

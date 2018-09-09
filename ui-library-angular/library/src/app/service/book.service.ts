@@ -87,4 +87,8 @@ export class BookService {
   saveBook(book: IBookModel): Observable<IBookModel> {
     return this.http.post<IBookModel>('http://localhost:9991/books-list/save/book', book, httpOptionsJson);
   }
+
+  getImage(id : String): Observable<any> {
+    return this.http.get("http://localhost:9991/book-data/get/image/data/" + id)
+  }
 }
