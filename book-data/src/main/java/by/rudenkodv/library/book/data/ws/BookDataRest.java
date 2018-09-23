@@ -10,6 +10,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RefreshScope
 @RestController
 public class BookDataRest {
@@ -60,7 +62,6 @@ public class BookDataRest {
     @GetMapping(value = "/delete/all/data")
     public void deleteAllData() {
         bookImageService.deleteAll();
-        ;
         bookDataService.deleteAll();
     }
 }
