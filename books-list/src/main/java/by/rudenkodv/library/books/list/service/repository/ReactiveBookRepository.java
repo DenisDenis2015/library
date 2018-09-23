@@ -8,12 +8,12 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface ReactiveBookRepository extends ReactiveCrudRepository<Book, String> {
-    
-    public Mono<Book> findByTitle(String title);
+
+    Mono<Book> findByTitle(String title);
 
     @Query("{'genre.name' : ?0}")
-    public Flux<Book> findByGenre(String name);
+    Flux<Book> findByGenre(String name);
 
-    public Mono<Long> countByGenreName(String genreName);
+    Mono<Long> countByGenreName(String genreName);
 
 }

@@ -8,12 +8,18 @@ spring:
         locator:
           enabled: false
       routes:
-      - id: books-list
-        uri: lb://books-list
-        predicates:
-        - Path=/books-list/**
-        filters:
-        - RewritePath=/books-list/(?<path>.*), /$\{path}
+        - id: books-list
+          uri: lb://books-list
+          predicates:
+          - Path=/books-list/**
+          filters:
+          - RewritePath=/books-list/(?<path>.*), /$\{path}
+        - id: book-data
+          uri: lb://book-data
+          predicates:
+          - Path=/book-data/**
+          filters:
+          - RewritePath=/book-data/(?<path>.*), /$\{path}
 
 logging:
   level:

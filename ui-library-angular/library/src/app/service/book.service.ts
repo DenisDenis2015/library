@@ -11,7 +11,7 @@ const httpOptions = {
     /*'Connection': 'keep-alive',*/
     'Content-Type': 'application/json',
     'Cache-Control': 'no-cache',
-    'Accept' : 'text/event-stream'
+    'Accept': 'text/event-stream'
   })
 };
 
@@ -20,7 +20,7 @@ const httpOptionsJson = {
     /*'Connection': 'keep-alive',*/
     'Content-Type': 'application/json',
     'Cache-Control': 'no-cache',
-    'Accept' : 'application/json'
+    'Accept': 'application/json'
   })
 };
 
@@ -86,5 +86,13 @@ export class BookService {
 
   saveBook(book: IBookModel): Observable<IBookModel> {
     return this.http.post<IBookModel>('http://localhost:9991/books-list/save/book', book, httpOptionsJson);
+  }
+
+  getImage(id: String): Observable<any> {
+    return this.http.get("http://localhost:9991/book-data/get/image/data/" + id)
+  }
+
+  getPdfContent(id: String): Observable<any> {
+    return this.http.get("http://localhost:9991/book-data/get/book/data/" + id, {responseType: 'arraybuffer'})
   }
 }

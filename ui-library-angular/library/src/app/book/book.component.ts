@@ -15,6 +15,8 @@ export class BookComponent implements OnInit {
   @Input()
   book: BookModel;
 
+  imageSrc: any;
+
   editMode;
 
   constructor(private bookService: BookService, private store: Store<BooksState>) {
@@ -24,6 +26,10 @@ export class BookComponent implements OnInit {
   ngOnInit() {
     if (this.book.id === null || this.book.id === '') {
       this.editMode = true
+    } else if (this.book.id != null) {
+      this.bookService.getImage(this.book.id).subscribe((img: any) => {
+        this.imageSrc = 'data:image/jpeg;base64,' + img.data
+      })
     }
   }
 
@@ -37,5 +43,20 @@ export class BookComponent implements OnInit {
         this.editMode = false;
         this.book = result;
       })
+  }
+
+  downloadBook() {
+    this.bookService.getPdfContent(this.book.id).subscribe((content: any) => {
+      var file = new Blob([content], {type: 'application/pdf;base64'});
+      const data = window.URL.createObjectURL(file);
+      var link = document.createElement('a');
+      link.href = data;
+      link.download = this.book.title + ".pdf";
+      link.click();
+      setTimeout(function () {
+        // For Firefox it is necessary to delay revoking the ObjectURL
+        window.URL.revokeObjectURL(data); 100
+      })
+    })
   }
 }
