@@ -13,12 +13,6 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class BookDataSpringBootStarter {
 
-    @Autowired
-    private BookDataService bookDataService;
-
-    @Autowired
-    private BookImageService bookImageService;
-
     public static void main(String[] args) {
         SpringApplication.run(BookDataSpringBootStarter.class, args);
     }

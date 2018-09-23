@@ -26,8 +26,10 @@ public class BookDataRest {
     }
 
     @GetMapping(value = "/get/book/data/{id}")
-    public BookData getBookData(final @PathVariable(name = "id") String id) {
-        return bookDataService.findByBookId(id);
+    public byte[] getBookData(final @PathVariable(name = "id") String id) {
+        return Optional.ofNullable(bookDataService.findByBookId(id))
+                .map(BookData::getData)
+                .orElse(new byte[0]);
     }
 
     @GetMapping(value = "/get/image/data/{id}")
@@ -56,8 +58,9 @@ public class BookDataRest {
     }
 
     @GetMapping(value = "/delete/all/data")
-    public void deleteAllData(){
-        bookImageService.deleteAll();;
+    public void deleteAllData() {
+        bookImageService.deleteAll();
+        ;
         bookDataService.deleteAll();
     }
 }

@@ -45,13 +45,18 @@ export class BookComponent implements OnInit {
       })
   }
 
-  read() {
+  downloadBook() {
     this.bookService.getPdfContent(this.book.id).subscribe((content: any) => {
-      let newPdfWindow = window.open("localhot:4200/", "Print");
-      let contentW = encodeURIComponent(content.data);
-      let iframeStart = "<iframe width='100%' height='100%' src='data:application/pdf;base64, ";
-      let iframeEnd = "'></iframe>";
-      newPdfWindow.document.write(iframeStart + contentW + iframeEnd);
+      var file = new Blob([content], {type: 'application/pdf;base64'});
+      const data = window.URL.createObjectURL(file);
+      var link = document.createElement('a');
+      link.href = data;
+      link.download = this.book.title + ".pdf";
+      link.click();
+      setTimeout(function () {
+        // For Firefox it is necessary to delay revoking the ObjectURL
+        window.URL.revokeObjectURL(data); 100
+      })
     })
   }
 }

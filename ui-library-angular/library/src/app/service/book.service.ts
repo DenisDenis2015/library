@@ -93,6 +93,6 @@ export class BookService {
   }
 
   getPdfContent(id: String): Observable<any> {
-    return this.http.get("http://localhost:9991/book-data/get/book/data/" + id)
+    return this.http.get("http://localhost:9991/book-data/get/book/data/" + id, {responseType: 'arraybuffer'})
   }
 }
