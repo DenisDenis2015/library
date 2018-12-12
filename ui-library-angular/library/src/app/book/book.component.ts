@@ -21,6 +21,7 @@ export class BookComponent implements OnInit {
 
   constructor(private bookService: BookService, private store: Store<BooksState>) {
     this.editMode = false;
+    this.imageSrc = '';
   }
 
   ngOnInit() {

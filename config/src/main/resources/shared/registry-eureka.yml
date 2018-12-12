@@ -8,8 +8,7 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
   server:
-    enableSelfPreservation: true
-    renewalPercentThreshold: 0.49
+    enableSelfPreservation: false
 
 
 server:
